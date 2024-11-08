@@ -58,6 +58,9 @@ jobs:
           DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
         run: echo "${DOCKER_HUB_PASSWORD}" | docker login -u "${DOCKER_HUB_USERNAME}" --password-stdin
 
+      - name: Set up Docker Compose
+        run: sudo apt-get install docker-compose
+
       - name: Build and Push Docker Images
         run: |
           docker-compose build
