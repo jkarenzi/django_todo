@@ -36,6 +36,12 @@ jobs:
 
       - name: Build Docker images
         run: docker-compose build
+    env:
+      DB_NAME: ${{secrets.DB_NAME}}
+      DB_USER: ${secrets.DB_USER}
+      DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+      DB_HOST: ${{secrets.DB_HOST}}
+      DB_PORT: ${{secrets.DB_PORT}}  
 
   # test:
   #   runs-on: ubuntu-latest
@@ -66,3 +72,9 @@ jobs:
           docker-compose build
           docker tag django_todo_web jkarenzi/django_todo_web:latest
           docker push jkarenzi/django_todo_web:latest
+    env:
+      DB_NAME: ${{secrets.DB_NAME}}
+      DB_USER: ${secrets.DB_USER}
+      DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+      DB_HOST: ${{secrets.DB_HOST}}
+      DB_PORT: ${{secrets.DB_PORT}}
