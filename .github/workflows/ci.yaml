@@ -64,4 +64,4 @@ jobs:
       - name: Build and Push Docker Images
         run: |
           docker-compose build
-          docker push jkarenzi/web:latest
+          docker push jkarenzi/django_todo_web:latest
