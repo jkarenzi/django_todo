@@ -1,0 +1,29 @@
+---
+- name: Deploy Django Application using Docker
+  hosts: all
+  become: true
+
+  vars:
+    dockerhub_username: "{{ vault_dockerhub_username }}"
+    dockerhub_password: "{{ vault_dockerhub_password }}"
+
+  tasks:
+    - name: Log in to Docker Hub
+      docker_login:
+        username: "{{ dockerhub_username }}"
+        password: "{{ dockerhub_password }}"
+
+    - name: Copy docker-compose.yml to the server
+      copy:
+        src: ./docker-compose.yml
+        dest: /home/{{ dockerhub_username }}/docker-compose.yml
+
+    - name: Pull latest images from Docker Hub
+      command: docker-compose -f /home/{{ dockerhub_username }}/docker-compose.yml pull
+      args:
+        chdir: /home/{{ dockerhub_username }}
+
+    - name: Run containers with docker-compose
+      command: docker-compose -f /home/{{ dockerhub_username }}/docker-compose.yml up -d
+      args:
+        chdir: /home/{{ dockerhub_username }}

@@ -71,6 +71,7 @@ jobs:
         run: |
           docker-compose build
           docker tag django_todo_web jkarenzi/django_todo_web:latest
+          docker tag django_todo_nginx jkarenzi/django_todo_nginx:latest
           docker push jkarenzi/django_todo_web:latest
     env:
       DB_NAME: ${{secrets.DB_NAME}}
